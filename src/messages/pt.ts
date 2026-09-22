@@ -87,21 +87,25 @@ const pt: Messages = {
         title: "INSPEÇÃO",
         description:
           "Avaliamos a condição da pintura, defeitos superficiais e seus objetivos antes de começar.",
+        imageAlt: "Detailer inspecionando um veículo na Foreign",
       },
       {
         title: "PREPARO",
         description:
           "Lavagem profunda, descontaminação, clay bar e preparação de superfície.",
+        imageAlt: "Preparação de superfície e detalhamento na Foreign",
       },
       {
         title: "CORREÇÃO E APLICAÇÃO",
         description:
           "Polimento, coating, insulfilm, wrap ou PPF — com precisão e produtos premium.",
+        imageAlt: "Correção de pintura e polimento na Foreign",
       },
       {
         title: "PROTEÇÃO E ENTREGA",
         description:
           "Inspeção final, camadas de proteção e orientação de cuidados posteriores.",
+        imageAlt: "Acabamento premium no estúdio da Foreign",
       },
     ],
   },
@@ -132,6 +136,8 @@ const pt: Messages = {
   faq: {
     eyebrow: "Perguntas",
     title: "FAQ",
+    imageAlt: "Estúdio de detailing premium da Foreign",
+    secondaryImageAlt: "Close-up de polimento e correção de pintura na Foreign",
     items: [
       {
         question: "Preciso agendar?",
@@ -170,6 +176,7 @@ const pt: Messages = {
     location: "SOUTH FLORIDA — USA",
     tagline: "CUIDADO AUTOMOTIVO PREMIUM.",
     taglineAccent: "BUILT DIFFERENT.",
+    imageAlt: "Detailer realizando trabalho automotivo premium na Foreign",
   },
   jsonLd: {
     description:

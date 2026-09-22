@@ -53,6 +53,7 @@ export type Messages = {
     steps: Array<{
       title: string;
       description: string;
+      imageAlt: string;
     }>;
   };
   why: {
@@ -71,6 +72,8 @@ export type Messages = {
   faq: {
     eyebrow: string;
     title: string;
+    imageAlt: string;
+    secondaryImageAlt: string;
     items: Array<{
       question: string;
       answer: string;
@@ -86,6 +89,7 @@ export type Messages = {
     location: string;
     tagline: string;
     taglineAccent: string;
+    imageAlt: string;
   };
   jsonLd: {
     description: string;

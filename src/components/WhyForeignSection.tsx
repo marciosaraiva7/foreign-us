@@ -1,23 +1,7 @@
-import Image from "next/image";
 import type { Messages } from "@/messages";
 import { croppedImages } from "@/lib/images";
 import { RevealOnScroll } from "./RevealOnScroll";
-
-function GtrImage({ alt }: { alt: string }) {
-  return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden border border-white/10 sm:aspect-video">
-      <Image
-        src={croppedImages.gtr}
-        alt={alt}
-        fill
-        sizes="(max-width: 768px) 100vw, 420px"
-        className="object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/40 via-transparent to-brand-black/10" />
-      <div className="absolute inset-x-0 bottom-0 h-1 bg-brand-gold" />
-    </div>
-  );
-}
+import { SectionImage } from "./SectionImage";
 
 export function WhyForeignSection({ messages }: { messages: Messages }) {
   return (
@@ -45,7 +29,13 @@ export function WhyForeignSection({ messages }: { messages: Messages }) {
             delay={80}
             className="w-full min-w-0 lg:col-start-2 lg:row-start-1 lg:row-span-3"
           >
-            <GtrImage alt={messages.why.imageAlt} />
+            <SectionImage
+              src={croppedImages.gtr}
+              alt={messages.why.imageAlt}
+              aspect="4/3"
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="sm:aspect-video"
+            />
           </RevealOnScroll>
 
           <div className="w-full min-w-0 space-y-3 lg:col-start-1 lg:row-start-2">

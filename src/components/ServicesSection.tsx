@@ -1,9 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import type { Messages } from "@/messages";
 import type { ServiceId } from "@/messages/types";
+import { serviceImages } from "@/lib/images";
 import { RevealOnScroll } from "./RevealOnScroll";
+import { SectionImage } from "./SectionImage";
 import { ServiceIcon } from "./ServiceIcon";
 
 export function ServicesSection({ messages }: { messages: Messages }) {
@@ -47,8 +50,8 @@ export function ServicesSection({ messages }: { messages: Messages }) {
           </div>
         </RevealOnScroll>
 
-        {/* Desktop: index + icon showcase (no photos) */}
-        <div className="hidden lg:grid lg:grid-cols-[1fr_340px] lg:gap-10 xl:grid-cols-[1fr_380px] xl:gap-12">
+        {/* Desktop: service list + photo showcase */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_380px] lg:gap-10 xl:grid-cols-[1fr_420px] xl:gap-12">
           <div className="space-y-0 border-t border-white/10">
             {messages.services.items.map((service, index) => {
               const isActive = activeId === service.id;
@@ -102,25 +105,47 @@ export function ServicesSection({ messages }: { messages: Messages }) {
           </div>
 
           {activeService && (
-            <div className="service-showcase relative flex flex-col items-center justify-center border border-white/10 bg-brand-black/40 p-8 text-center">
-              <span className="font-display text-step-4 font-black text-brand-gold/20">
-                {String(activeIndex + 1).padStart(2, "0")}
-              </span>
-              <span className="mt-4 flex h-20 w-20 items-center justify-center border border-brand-gold/40 text-brand-gold">
-                <ServiceIcon id={activeService.id} className="h-10 w-10" />
-              </span>
-              <p className="font-display mt-6 text-step-1 font-bold tracking-[0.12em]">
-                {activeService.title}
-              </p>
-              <div className="mt-3 h-0.5 w-12 bg-brand-gold" />
-              <p className="mt-4 text-step--1 leading-relaxed text-brand-muted">
-                {activeService.description}
-              </p>
+            <div className="service-showcase relative flex flex-col overflow-hidden border border-white/10 bg-brand-black/40">
+              <div className="relative aspect-[4/3] w-full shrink-0">
+                {messages.services.items.map((service) => (
+                  <Image
+                    key={service.id}
+                    src={serviceImages[service.id]}
+                    alt={service.imageAlt}
+                    fill
+                    sizes="420px"
+                    className={`object-cover object-center transition-opacity duration-500 ${
+                      service.id === activeId ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-brand-black/50 via-transparent to-brand-black/10"
+                  aria-hidden="true"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-brand-gold" aria-hidden="true" />
+              </div>
+
+              <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
+                <span className="font-display text-step-3 font-black text-brand-gold/25">
+                  {String(activeIndex + 1).padStart(2, "0")}
+                </span>
+                <span className="mt-2 flex h-12 w-12 items-center justify-center border border-brand-gold/40 text-brand-gold">
+                  <ServiceIcon id={activeService.id} className="h-6 w-6" />
+                </span>
+                <p className="font-display mt-4 text-step-1 font-bold tracking-[0.12em]">
+                  {activeService.title}
+                </p>
+                <div className="mt-3 h-0.5 w-12 bg-brand-gold" />
+                <p className="mt-3 text-step--1 leading-relaxed text-brand-muted">
+                  {activeService.description}
+                </p>
+              </div>
             </div>
           )}
         </div>
 
-        {/* Mobile: compact accordion without images */}
+        {/* Mobile: accordion with photos when open */}
         <div className="space-y-0 border-t border-white/10 lg:hidden">
           {messages.services.items.map((service, index) => {
             const isOpen = openMobileId === service.id;
@@ -177,6 +202,13 @@ export function ServicesSection({ messages }: { messages: Messages }) {
                     className={`service-panel ${isOpen ? "is-open" : ""}`}
                   >
                     <div className="service-panel-inner">
+                      <SectionImage
+                        src={serviceImages[service.id]}
+                        alt={service.imageAlt}
+                        aspect="4/3"
+                        sizes="100vw"
+                        className="mb-4 ml-10 mr-2"
+                      />
                       <p className="pb-4 pl-10 pr-2 text-sm leading-relaxed text-brand-muted">
                         {service.description}
                       </p>

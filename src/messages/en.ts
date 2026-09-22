@@ -86,21 +86,25 @@ const en: Messages = {
         title: "INSPECTION",
         description:
           "We assess paint condition, surface defects, and your goals before any work begins.",
+        imageAlt: "Detailer inspecting a vehicle at Foreign",
       },
       {
         title: "PREP & DECONTAMINATION",
         description:
           "Deep wash, iron removal, clay bar, and surface prep to ensure products bond properly.",
+        imageAlt: "Surface preparation and window area detailing at Foreign",
       },
       {
         title: "CORRECTION & APPLICATION",
         description:
           "Machine polishing, coating, tint, wrap, or PPF — executed with precision and premium products.",
+        imageAlt: "Paint correction and machine polishing at Foreign",
       },
       {
         title: "PROTECTION & DELIVERY",
         description:
           "Final inspection, protection layers applied, and a walkthrough of care instructions.",
+        imageAlt: "Premium detailing studio finish at Foreign",
       },
     ],
   },
@@ -130,6 +134,8 @@ const en: Messages = {
   faq: {
     eyebrow: "Questions",
     title: "FAQ",
+    imageAlt: "Foreign detailing studio with premium automotive care",
+    secondaryImageAlt: "Close-up of paint correction polishing at Foreign",
     items: [
       {
         question: "Do I need an appointment?",
@@ -168,6 +174,7 @@ const en: Messages = {
     location: "SOUTH FLORIDA — USA",
     tagline: "PREMIUM AUTOMOTIVE CARE.",
     taglineAccent: "BUILT DIFFERENT.",
+    imageAlt: "Detailer performing premium automotive work at Foreign",
   },
   jsonLd: {
     description:

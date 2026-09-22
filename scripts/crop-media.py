@@ -20,6 +20,8 @@ CROPS: dict[str, tuple[str, tuple[int, int, int, int]]] = {
     "detailer-studio.webp": ("services-studio.png", (380, 0, 768, 900)),
     "car-window.webp": ("car-detail.png", (540, 60, 1024, 700)),
     "polisher-close.webp": ("services-polish.png", (280, 80, 720, 980)),
+    # Detailers at work — from unused services poster art
+    "detailer-polish.webp": ("services-detailer.png", (340, 110, 768, 680)),
 }
 
 

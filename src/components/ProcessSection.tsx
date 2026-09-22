@@ -1,5 +1,7 @@
 import type { Messages } from "@/messages";
+import { processImageDimensions, processImages } from "@/lib/images";
 import { RevealOnScroll } from "./RevealOnScroll";
+import { SectionImage } from "./SectionImage";
 
 export function ProcessSection({ messages }: { messages: Messages }) {
   return (
@@ -24,41 +26,44 @@ export function ProcessSection({ messages }: { messages: Messages }) {
           </div>
         </RevealOnScroll>
 
-        <div className="relative">
-          <div
-            className="absolute left-4 top-0 hidden h-full w-px origin-top bg-brand-gold/30 lg:block"
-            aria-hidden="true"
-          >
-            <div className="h-full w-full origin-top scale-y-0 bg-brand-gold animate-draw-line" />
-          </div>
+        <ol className="grid gap-10 lg:gap-16">
+          {messages.process.steps.map((step, index) => {
+            const imageFirst = index % 2 === 0;
 
-          <ol className="grid gap-8 lg:gap-12">
-            {messages.process.steps.map((step, index) => (
+            return (
               <RevealOnScroll key={step.title} delay={index * 80}>
-                <li className="relative lg:pl-16">
-                  <span
-                    className="font-display absolute left-0 top-1 hidden h-8 w-8 items-center justify-center border border-brand-gold bg-brand-black text-step--1 font-black text-brand-gold lg:flex"
-                    aria-hidden="true"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <article className="surface-panel p-6 sm:p-8">
-                    <p className="font-display text-step--1 font-black tracking-[0.2em] text-brand-gold lg:hidden">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="font-display mt-1 text-step-2 font-bold tracking-[0.12em] text-brand-cream">
-                      {step.title}
-                    </h3>
-                    <div className="mt-3 h-0.5 w-12 bg-brand-gold" />
-                    <p className="mt-4 max-w-xl text-step-0 leading-relaxed text-brand-muted">
-                      {step.description}
-                    </p>
-                  </article>
+                <li>
+                  <div className="grid gap-6 lg:grid-cols-2 lg:items-start lg:gap-10">
+                    <SectionImage
+                      src={processImages[index] ?? processImages[0]}
+                      alt={step.imageAlt}
+                      intrinsicSize={processImageDimensions[index]}
+                      sizes="(max-width: 1024px) 100vw, 480px"
+                      className={imageFirst ? "lg:order-1" : "lg:order-2"}
+                    />
+
+                    <article
+                      className={`surface-panel p-6 sm:p-8 ${
+                        imageFirst ? "lg:order-2" : "lg:order-1"
+                      }`}
+                    >
+                      <p className="font-display text-step--1 font-black tracking-[0.2em] text-brand-gold">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <h3 className="font-display mt-1 text-step-2 font-bold tracking-[0.12em] text-brand-cream">
+                        {step.title}
+                      </h3>
+                      <div className="mt-3 h-0.5 w-12 bg-brand-gold" />
+                      <p className="mt-4 max-w-xl text-step-0 leading-relaxed text-brand-muted">
+                        {step.description}
+                      </p>
+                    </article>
+                  </div>
                 </li>
               </RevealOnScroll>
-            ))}
-          </ol>
-        </div>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
