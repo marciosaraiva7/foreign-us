@@ -1,7 +1,7 @@
 import type { ServiceId } from "@/messages/types";
 
 export const croppedImages = {
-  hero: "/images/cropped/hero-detailer.webp",
+  heroBanner: "/images/cropped/hero-banner.webp",
   gtr: "/images/cropped/gtr-clean.webp",
   wallTexture: "/images/cropped/wall-texture.webp",
   og: "/images/og-image.webp",

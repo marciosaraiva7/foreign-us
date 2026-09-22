@@ -7,8 +7,7 @@ const SAFETY_MS = 2500;
 
 export function RevealProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add("js-reveal");
+    document.documentElement.classList.add("js-reveal");
 
     const elements = Array.from(
       document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR)

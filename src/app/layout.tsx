@@ -21,14 +21,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     headerLocale && isValidLocale(headerLocale) ? headerLocale : defaultLocale;
 
   return (
-    <html lang={localeToHtmlLang(locale)} className="h-full antialiased">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js-reveal');",
-          }}
-        />
-      </head>
+    <html
+      lang={localeToHtmlLang(locale)}
+      suppressHydrationWarning
+      className="h-full antialiased"
+    >
       <body className="min-h-full bg-brand-black text-brand-cream">
         {children}
       </body>

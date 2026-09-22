@@ -1,12 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import type { Messages } from "@/messages";
 import { RevealOnScroll } from "./RevealOnScroll";
 
 export function FAQSection({ messages }: { messages: Messages }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <section
       id="faq"
@@ -27,47 +22,34 @@ export function FAQSection({ messages }: { messages: Messages }) {
         </RevealOnScroll>
 
         <div className="border-t border-white/10">
-          {messages.faq.items.map((item, index) => {
-            const isOpen = openIndex === index;
-            const panelId = `faq-panel-${index}`;
-
-            return (
-              <RevealOnScroll key={item.question} delay={index * 50}>
-                <div className="border-b border-white/10">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="flex w-full items-start justify-between gap-4 py-5 text-left"
-                  >
-                    <span className="font-display text-step-0 font-bold tracking-[0.06em] text-brand-cream">
-                      {item.question}
-                    </span>
-                    <span
-                      className={`mt-1 shrink-0 text-brand-gold transition-transform duration-300 ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
-                      aria-hidden="true"
-                    >
-                      +
-                    </span>
-                  </button>
-
-                  <div
-                    id={panelId}
-                    className={`faq-panel ${isOpen ? "is-open" : ""}`}
-                  >
-                    <div className="faq-panel-inner">
-                      <p className="pb-5 text-step-0 leading-relaxed text-brand-muted">
-                        {item.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            );
-          })}
+          {messages.faq.items.map((item, index) => (
+            <details
+              key={item.question}
+              name="foreign-faq"
+              className="faq-details group border-b border-white/10"
+              open={index === 0}
+            >
+              <summary className="faq-summary flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-5 text-left [&::-webkit-details-marker]:hidden">
+                <span className="min-w-0 flex-1">
+                  <span className="font-display block text-step-0 font-bold tracking-[0.06em] text-brand-cream">
+                    {item.question}
+                  </span>
+                  <span className="faq-accent mt-2 block h-0.5 w-full max-w-[120px] origin-left bg-brand-gold" />
+                </span>
+                <span
+                  className="faq-icon mt-1 shrink-0 text-xl leading-none text-brand-gold"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <div className="faq-answer pb-5">
+                <p className="text-step-0 leading-relaxed text-brand-muted">
+                  {item.answer}
+                </p>
+              </div>
+            </details>
+          ))}
         </div>
       </div>
     </section>

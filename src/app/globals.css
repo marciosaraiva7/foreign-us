@@ -106,7 +106,7 @@ body {
   color: var(--brand-cream);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .font-display {
@@ -166,6 +166,44 @@ body {
   opacity: 0.12;
 }
 
+.hero-car-layer {
+  overflow: hidden;
+}
+
+.hero-car-image {
+  transform-origin: center bottom;
+  animation: hero-ken-burns 18s ease-in-out infinite alternate;
+}
+
+.hero-glow {
+  animation: hero-pulse 6s ease-in-out infinite;
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+.service-showcase {
+  min-height: 320px;
+}
+
+@keyframes hero-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.08);
+  }
+}
+
 @keyframes draw-line {
   from {
     transform: scaleX(0);
@@ -212,18 +250,106 @@ html.js-reveal .reveal-on-scroll.is-visible {
   overflow: hidden;
 }
 
-.faq-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+/* FAQ accordion — native details, CSS-only motion */
+.faq-details summary {
+  list-style: none;
 }
 
-.faq-panel.is-open {
-  grid-template-rows: 1fr;
-}
-
-.faq-panel-inner {
+.faq-details::details-content {
+  block-size: 0;
   overflow: hidden;
+  transition:
+    block-size 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    content-visibility 0.28s allow-discrete;
+}
+
+.faq-details[open]::details-content {
+  block-size: auto;
+}
+
+.faq-summary {
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  border-radius: 2px;
+  margin-inline: -0.25rem;
+  padding-inline: 0.25rem;
+}
+
+.faq-summary:active {
+  transform: scale(0.985);
+  background-color: color-mix(in srgb, var(--brand-gold) 8%, transparent);
+}
+
+.faq-accent {
+  transform: scaleX(0);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-details[open] .faq-accent {
+  transform: scaleX(1);
+}
+
+.faq-icon {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-details[open] .faq-answer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Touch feedback — mobile-first */
+.touch-press:active {
+  transform: scale(0.985);
+}
+
+.locale-link {
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.locale-link:active {
+  transform: scale(0.96);
+}
+
+.service-accordion-trigger {
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  border-radius: 2px;
+  margin-inline: -0.25rem;
+  padding-inline: 0.25rem;
+}
+
+.service-accordion-trigger:active {
+  transform: scale(0.985);
+  background-color: color-mix(in srgb, var(--brand-gold) 6%, transparent);
+}
+
+.service-accordion-icon {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.service-accordion-trigger:active .service-accordion-icon {
+  border-color: color-mix(in srgb, var(--brand-gold) 50%, transparent);
 }
 
 .values-scroll {
@@ -277,7 +403,14 @@ html.js-reveal .reveal-on-scroll.is-visible {
   font-weight: 700;
   letter-spacing: 0.14em;
   color: var(--brand-cream);
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-ghost:active {
+  transform: scale(0.98);
 }
 
 .btn-ghost:hover {
@@ -295,6 +428,11 @@ html.js-reveal .reveal-on-scroll.is-visible {
     scroll-behavior: auto;
   }
 
+  .hero-glow,
+  .hero-car-image {
+    animation: none !important;
+  }
+
   .animate-draw-line,
   html.js-reveal .reveal-on-scroll {
     animation: none !important;
@@ -303,8 +441,36 @@ html.js-reveal .reveal-on-scroll.is-visible {
     transform: none !important;
   }
 
-  .service-panel,
-  .faq-panel {
+  .service-panel {
     transition: none !important;
+  }
+
+  .faq-details::details-content,
+  .faq-accent,
+  .faq-icon,
+  .faq-answer,
+  .faq-summary,
+  .touch-press,
+  .locale-link,
+  .service-accordion-trigger,
+  .service-accordion-icon,
+  .btn-primary,
+  .btn-ghost {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .faq-details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-details[open] .faq-accent {
+    transform: scaleX(1);
+  }
+
+  .faq-details[open] .faq-answer {
+    opacity: 1;
+    transform: none;
   }
 }
