@@ -7,6 +7,7 @@ import { JsonLd } from "./JsonLd";
 import { MobileCTA } from "./MobileCTA";
 import { ProcessSection } from "./ProcessSection";
 import { RevealProvider } from "./RevealProvider";
+import { ServiceRibbon } from "./ServiceRibbon";
 import { ServicesSection } from "./ServicesSection";
 import { SiteHeader } from "./SiteHeader";
 import { WhyForeignSection } from "./WhyForeignSection";
@@ -20,6 +21,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
       <SiteHeader locale={locale} messages={messages} />
       <main className="pb-24 md:pb-0">
         <HeroSection messages={messages} />
+        <ServiceRibbon messages={messages} locale={locale} />
         <ServicesSection messages={messages} />
         <ProcessSection messages={messages} />
         <WhyForeignSection messages={messages} />

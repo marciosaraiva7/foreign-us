@@ -41,9 +41,7 @@ export function HeroSection({ messages }: { messages: Messages }) {
         </RevealOnScroll>
       </div>
       <a href="#services" className="hero-explore"><span className="explore-line" aria-hidden="true" />{messages.hero.scrollHint}</a>
-      <div className="hero-service-strip" aria-hidden="true">
-        {messages.services.items.map((service) => <span key={service.id}>{service.title}<b>✦</b></span>)}
-      </div>
+
     </section>
   );
 }

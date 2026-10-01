@@ -1,5 +1,5 @@
 import type { Messages } from "@/messages";
-import { processImageDimensions, processImages } from "@/lib/images";
+import { processImages } from "@/lib/images";
 import { RevealOnScroll } from "./RevealOnScroll";
 import { SectionImage } from "./SectionImage";
 
@@ -33,11 +33,11 @@ export function ProcessSection({ messages }: { messages: Messages }) {
             return (
               <RevealOnScroll key={step.title} delay={index * 80}>
                 <li>
-                  <div className="grid gap-6 lg:grid-cols-2 lg:items-start lg:gap-10">
+                  <div className="grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-10">
                     <SectionImage
                       src={processImages[index] ?? processImages[0]}
                       alt={step.imageAlt}
-                      intrinsicSize={processImageDimensions[index]}
+                      aspect="4/3"
                       sizes="(max-width: 1024px) 100vw, 480px"
                       className={imageFirst ? "lg:order-1" : "lg:order-2"}
                     />
