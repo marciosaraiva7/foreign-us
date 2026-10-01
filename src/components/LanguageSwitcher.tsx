@@ -13,7 +13,7 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
     <div
       className="flex items-center gap-0.5 rounded-sm border border-white/10 bg-brand-black/60 p-0.5 backdrop-blur-md"
       role="group"
-      aria-label="Language"
+      aria-label={locale === "pt" || locale === "es" ? "Idioma" : "Language"}
     >
       {locales.map((item) => {
         const isActive = item === locale;
@@ -22,11 +22,13 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
           <a
             key={item}
             href={`/${item}`}
+            lang={item}
+            hrefLang={item}
+            title={item === "pt" ? "Português" : item === "es" ? "Español" : "English"}
             aria-current={isActive ? "true" : undefined}
             onClick={(event) => {
-              if (isActive) return;
-              event.preventDefault();
-              window.location.assign(`/${item}`);
+              if (isActive || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.currentTarget.href = `/${item}${window.location.hash}`;
             }}
             className={`locale-link flex min-h-11 min-w-11 items-center justify-center px-2.5 text-xs font-semibold tracking-[0.18em] ${
               isActive

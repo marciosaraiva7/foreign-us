@@ -190,7 +190,7 @@ export function ServicesSection({ messages }: { messages: Messages }) {
                         }`}
                       />
                       {!isOpen && (
-                        <span className="mt-1.5 line-clamp-2 block text-xs leading-relaxed text-brand-muted">
+                        <span className="mt-1.5 line-clamp-2 block text-sm leading-relaxed text-brand-muted">
                           {service.description}
                         </span>
                       )}

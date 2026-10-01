@@ -16,16 +16,16 @@ export function proxy(request: NextRequest) {
 
   if (pathnameHasLocale) {
     const locale = pathname.split("/")[1];
-    const response = NextResponse.next();
     if (locale && isValidLocale(locale)) {
-      response.headers.set("x-locale", locale);
-      response.cookies.set(LOCALE_COOKIE, locale, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365,
-        sameSite: "lax",
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set("x-locale", locale);
+      const localizedResponse = NextResponse.next({ request: { headers: requestHeaders } });
+      localizedResponse.cookies.set(LOCALE_COOKIE, locale, {
+        path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax",
       });
+      return localizedResponse;
     }
-    return response;
+    return NextResponse.next();
   }
 
   if (pathname !== "/") {

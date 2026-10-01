@@ -24,6 +24,13 @@ export function SiteHeader({
 }) {
   const active = useActiveSection();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navLabel = locale === "pt" ? "Navegação principal" : locale === "es" ? "Navegación principal" : "Main navigation";
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -35,19 +42,19 @@ export function SiteHeader({
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
+        (scrolled || menuOpen)
           ? "border-b border-white/10 bg-brand-black/85 py-2 backdrop-blur-lg"
           : "bg-transparent py-3"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 pt-[max(0.25rem,env(safe-area-inset-top))] sm:px-8">
-        <a href="#" aria-label="Foreign home" className="shrink-0">
+        <a href="#" aria-label={locale === "pt" ? "Foreign — início" : locale === "es" ? "Foreign — inicio" : "Foreign home"} className="shrink-0">
           <BrandMark size="sm" />
         </a>
 
         <nav
           className="hidden items-center gap-1 lg:flex"
-          aria-label="Main navigation"
+          aria-label={navLabel}
         >
           {NAV_ITEMS.map((item) => {
             const isActive = active === item.id;
@@ -68,8 +75,16 @@ export function SiteHeader({
           })}
         </nav>
 
-        <LanguageSwitcher locale={locale} />
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher locale={locale} />
+          <button type="button" className="mobile-menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={locale === "pt" ? "Menu de navegação" : locale === "es" ? "Menú de navegación" : "Navigation menu"} onClick={() => setMenuOpen(!menuOpen)}>
+            <span /><span />
+          </button>
+        </div>
       </div>
+      {menuOpen && <nav id="mobile-navigation" className="mobile-navigation lg:hidden" aria-label={navLabel}>
+        {NAV_ITEMS.map((item) => <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)}>{messages.nav[item.key]}</a>)}
+      </nav>}
     </header>
   );
 }

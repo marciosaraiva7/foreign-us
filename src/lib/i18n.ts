@@ -15,6 +15,7 @@ export function detectLocale(acceptLanguage: string | null): Locale {
     .map((part) => part.split(";")[0]?.trim().toLowerCase() ?? "");
 
   for (const language of languages) {
+    if (language.startsWith("en")) return "en";
     if (language.startsWith("pt")) return "pt";
     if (language.startsWith("es")) return "es";
   }
